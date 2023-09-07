@@ -2,6 +2,12 @@
 
 A test client-server web application which can display a simple cone in a 3D view.
 
+## Deploy
+
+- client: [netlify](cone3d.netlify.app)
+
+- server: [render](https://cone3d.onrender.com)
+
 ## Getting Started
 
 Follow these steps to set up and run Cone 3D on your local machine:

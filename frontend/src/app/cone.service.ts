@@ -6,8 +6,9 @@ import {
 import { Injectable } from '@angular/core';
 import { ParametersCone, Triangulation } from './types.model';
 import { BehaviorSubject, Observable, catchError, of, retry, take } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
-const serverUrl = 'http://localhost:3000';
+const serverUrl = environment.apiUrl;
 const apiServerUrl = `${serverUrl}/calc-cone`;
 
 @Injectable({
