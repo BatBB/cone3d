@@ -2,12 +2,11 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
-  NgZone,
   OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { Subject, take, takeUntil } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { ConeService } from 'src/app/cone.service';
 import { Triangulation } from 'src/app/types.model';
 import * as THREE from 'three';
@@ -55,6 +54,7 @@ export class ConeViewComponent implements OnInit, AfterViewInit, OnDestroy {
     const triangulations: Triangulation[] = this.coneService.triangulations;
 
     const positions = new Float32Array(triangulations.length * 9);
+    const normals = new Float32Array(triangulations.length * 9);
 
     for (let i = 0; i < triangulations.length; i++) {
       const triangle = triangulations[i];
@@ -69,13 +69,29 @@ export class ConeViewComponent implements OnInit, AfterViewInit, OnDestroy {
       positions[i * 9 + 6] = triangle.p2.x;
       positions[i * 9 + 7] = triangle.p2.y;
       positions[i * 9 + 8] = triangle.p2.z;
+
+      const normal = triangle.normal;
+
+      normals[i * 9] = normal.x;
+      normals[i * 9 + 1] = normal.y;
+      normals[i * 9 + 2] = normal.z;
+
+      normals[i * 9 + 3] = normal.x;
+      normals[i * 9 + 4] = normal.y;
+      normals[i * 9 + 5] = normal.z;
+
+      normals[i * 9 + 6] = normal.x;
+      normals[i * 9 + 7] = normal.y;
+      normals[i * 9 + 8] = normal.z;
     }
 
     geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    geometry.setAttribute('normal', new THREE.BufferAttribute(normals, 3));
 
-    const material = new THREE.MeshBasicMaterial({
-      color: 0x654321,
-      wireframe: true,
+    const material = new THREE.MeshPhongMaterial({
+      color: 0x6e6e6e,
+      shininess: 100,
+      specular: 0xffffff,
     });
 
     if (this.cone) {
@@ -95,7 +111,7 @@ export class ConeViewComponent implements OnInit, AfterViewInit, OnDestroy {
       0.1,
       1000
     );
-    this.camera.position.z = 50;
+    this.camera.position.z = 20;
 
     this.renderer = new THREE.WebGLRenderer({
       canvas: this.canvasRef.nativeElement,
@@ -106,6 +122,13 @@ export class ConeViewComponent implements OnInit, AfterViewInit, OnDestroy {
     );
 
     this.createCone();
+
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1);
+    this.scene.add(ambientLight);
+
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 10);
+    directionalLight.position.set(1, 1, 1);
+    this.scene.add(directionalLight);
 
     if (this.cone) {
       this.scene.add(this.cone);

@@ -14,4 +14,5 @@ export type Triangulation = {
   vertexA: Coordinate;
   p1: Coordinate;
   p2: Coordinate;
+  normal: Coordinate;
 };

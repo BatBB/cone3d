@@ -28,6 +28,11 @@ function getTriangulationCone(height, radius, segments) {
     y: 0,
     z: height,
   }
+  const pointB = {
+    x: 0,
+    y: 0,
+    z: -(radius ** 2 / height),
+  }
 
   for (let i = 0; i < segments; i++) {
     const angle1 = (2 * Math.PI * i) / segments
@@ -44,10 +49,25 @@ function getTriangulationCone(height, radius, segments) {
       z: 0,
     }
 
+    const Ni = {
+      x: p1.x - pointB.x,
+      y: p1.y - pointB.y,
+      z: p1.z - pointB.z,
+    }
+
+    const NiMagnitude = Math.sqrt(Ni.x ** 2 + Ni.y ** 2 + Ni.z ** 2)
+
+    const normal = {
+      x: Ni.x / NiMagnitude,
+      y: Ni.y / NiMagnitude,
+      z: Ni.z / NiMagnitude,
+    }
+
     triangulation.push({
       vertexA,
       p1,
       p2,
+      normal,
     })
   }
   return triangulation

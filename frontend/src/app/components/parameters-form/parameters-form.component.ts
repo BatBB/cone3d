@@ -15,9 +15,9 @@ export class ParametersFormComponent {
   private segments = this.coneService.parametersCone.segments;
 
   public parameterForm = this.fb.group({
-    height: [this.height, Validators.required],
-    radius: [this.radius, Validators.required],
-    segments: [this.segments, Validators.required],
+    height: [this.height, [Validators.required, Validators.min(1)]],
+    radius: [this.radius, [Validators.required, Validators.min(1)]],
+    segments: [this.segments, [Validators.required, Validators.min(1)]],
   });
 
   private destroy$ = new Subject<void>();
