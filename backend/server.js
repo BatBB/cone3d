@@ -44,7 +44,11 @@ function getTriangulationCone(height, radius, segments) {
       z: 0,
     }
 
-    triangulation.push([vertexA, p1, p2])
+    triangulation.push({
+      vertexA,
+      p1,
+      p2,
+    })
   }
   return triangulation
 }

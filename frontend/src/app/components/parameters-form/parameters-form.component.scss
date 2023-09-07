@@ -1,0 +1,30 @@
+.parameter-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 300px;
+
+  &__title {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 21px;
+    margin: 5px;
+  }
+
+  &__group {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__input {
+    width: 100px;
+  }
+
+  &__bottom {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+    cursor: pointer;
+  }
+}

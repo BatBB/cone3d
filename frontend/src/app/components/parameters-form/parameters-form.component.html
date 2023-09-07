@@ -1,0 +1,39 @@
+<form
+  [formGroup]="parameterForm"
+  (submit)="setParameters()"
+  class="parameter-form"
+>
+  <p class="parameter-form__title">Parameters cone:</p>
+  <div class="parameter-form__group">
+    <label for="height">Cone Height:</label>
+    <input
+      type="number"
+      id="height"
+      formControlName="height"
+      class="parameter-form__input"
+    />
+  </div>
+  <div class="parameter-form__group">
+    <label for="radius">Cone Radius:</label>
+    <input
+      type="number"
+      id="radius"
+      formControlName="radius"
+      class="parameter-form__input"
+    />
+  </div>
+  <div class="parameter-form__group">
+    <label for="segments">Number of Segments:</label>
+    <input
+      type="number"
+      id="segments"
+      formControlName="segments"
+      class="parameter-form__input"
+    />
+  </div>
+  <div class="parameter-form__bottom">
+    <button type="submit" class="btn" [disabled]="parameterForm.invalid">
+      Generate Cone
+    </button>
+  </div>
+</form>
